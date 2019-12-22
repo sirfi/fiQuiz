@@ -1,0 +1,12 @@
+﻿@import "../../scss/_variables.scss";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    padding-top: 4.5rem;
+}
+
+.table-last-small-column {
+    tr > td:last-child, tr > th:last-child {
+        width: 1px;
+    }
+}

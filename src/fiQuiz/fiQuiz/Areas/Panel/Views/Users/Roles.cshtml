@@ -1,0 +1,41 @@
+﻿@model fiQuiz.Areas.Panel.Models.ViewModels.UserRolesViewModel
+
+@{
+    ViewBag.Title = "Kullanıcı Rolleri - " + Model.User.FullName;
+}
+
+<h1>Kullanıcı Rolleri - @Model.User.FullName</h1>
+
+<div class="table-responsive">
+    <table class="table table-last-small-column">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRoleStatusList[0].Role.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRoleStatusList[0].Role.FullName)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.UserRoleStatusList)
+        {
+            <tr class="@(item.Status?"bg-success":"")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.FullName)
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="İşlemler">
+                        <a asp-action="SetRole" asp-route-id="@Model.User.Id" asp-route-role="@item.Role.Name" asp-route-status="@(!item.Status)" class="btn btn-@(item.Status?"danger":"success")">@(item.Status?"Çıkar":"Ekle")</a>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

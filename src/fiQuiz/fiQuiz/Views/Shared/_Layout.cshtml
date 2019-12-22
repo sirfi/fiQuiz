@@ -1,0 +1,42 @@
+﻿@using Microsoft.Extensions.Configuration
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @ApplicationOptions.Value.ApplicationName</title>
+
+    <link rel="stylesheet" href="~/dist/bundle.css" />
+</head>
+<body>
+    
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@ApplicationOptions.Value.ApplicationName</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Aç Kapa">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" is-active-route asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" is-active-route asp-area="" asp-controller="Quiz" asp-action="Index">Yarışma</a>
+            </li>
+        </ul>
+        <partial name="_LoginPartial" />
+    </div>
+</nav>
+
+<main role="main" class="container">
+
+    @RenderBody()
+
+</main>
+
+<script src="~/dist/bundle.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

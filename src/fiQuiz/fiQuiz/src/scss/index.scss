@@ -1,0 +1,25 @@
+﻿@import "variables";
+@import "~bootstrap/scss/bootstrap";
+
+.custom-control-secondary {
+    .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+        background-color: lighten($secondary, 35%);
+        border-color: lighten($secondary, 35%);
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+        border-color: $secondary;
+        background-color: $secondary;
+    }
+}
+
+body {
+    padding-top: 4.5rem;
+
+}
+
+@include media-breakpoint-down(sm) {
+    :root {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,18 @@
+﻿@model ITrackable
+<div class="btn-group">
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Detay
+    </button>
+    <div class="dropdown-menu p-0">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item text-nowrap font-weight-bold">@Html.DisplayNameFor(model => model.CreatedAt)</li>
+            <li class="list-group-item">@Html.DisplayFor(model => model.CreatedAt)</li>
+            <li class="list-group-item text-nowrap font-weight-bold">@Html.DisplayNameFor(model => model.CreatedBy)</li>
+            <li class="list-group-item">@Html.DisplayFor(model => model.CreatedBy)</li>
+            <li class="list-group-item text-nowrap font-weight-bold">@Html.DisplayNameFor(model => model.LastUpdatedAt)</li>
+            <li class="list-group-item">@Html.DisplayFor(model => model.LastUpdatedAt)</li>
+            <li class="list-group-item text-nowrap font-weight-bold">@Html.DisplayNameFor(model => model.LastUpdatedBy)</li>
+            <li class="list-group-item">@Html.DisplayFor(model => model.LastUpdatedBy)</li>
+        </ul>
+    </div>
+</div>

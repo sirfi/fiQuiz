@@ -1,0 +1,26 @@
+﻿@model fiQuiz.Models.Question
+
+<div class="card mb-2">
+    <div class="card-header">
+        Soru
+    </div>
+    <div class="card-body">
+        <p class="card-text">@Model.QuestionText</p>
+        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+        {
+            <hr/>
+            <form asp-action="SetApprovalStatus" asp-controller="Questions">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ApprovalStatus" class="control-label"></label>
+                    <select asp-for="ApprovalStatus" class="form-control" asp-items="Html.GetEnumSelectList<QuestionApprovalStatus>()"></select>
+                    <span asp-validation-for="ApprovalStatus" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <input type="submit" value="Kaydet" class="btn btn-primary" />
+                </div>
+            </form>
+        }
+    </div>
+</div>

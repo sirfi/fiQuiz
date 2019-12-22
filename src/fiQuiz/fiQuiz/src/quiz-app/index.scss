@@ -1,0 +1,204 @@
+﻿@import "../scss/_variables.scss";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@mixin spin($duration: 3000ms) {
+    animation-name: spin;
+    animation-duration: $duration;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.game-container {
+    max-width: 40rem;
+    margin: 0 auto;
+    background-color: $color5;
+    color: $color0;
+}
+
+.game-header {
+    display: flex;
+    border-bottom: 0.25rem solid $color0;
+}
+
+.game-title {
+    flex: 1 0 auto;
+    padding: 0.5rem;
+    border-right: 0.25rem solid $color0;
+}
+
+.game-name {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.game-user-name {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.game-remaining-time {
+    flex: 1 0 5.5rem;
+    text-align: center;
+    max-width: 5.5rem;
+    font-size: 3rem;
+    padding: 0.5rem;
+    background-color: $color1;
+}
+
+.game-body {
+    padding: 0.5rem;
+    padding-top: 4rem;
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .quiz-jokers {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        padding: 0.5rem 0.5rem 0 0.5rem;
+
+        &.disabled {
+            opacity: 0.75;
+            pointer-events: none;
+        }
+    }
+
+    .btn-quiz-joker {
+        width: 7.5rem;
+        height: 2.5rem;
+        padding: 0.125rem;
+        margin: 0 0.25rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        &.disabled {
+            opacity: 0.75;
+        }
+
+        svg {
+            fill: white;
+            width: 2rem;
+            height: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .joker-name {
+            font-size: 0.75rem;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+    }
+
+    .game-step {
+        width: 100%;
+        text-align: center;
+
+        .form-group {
+            width: 90%;
+            max-width: 16rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        svg {
+            fill: white;
+            width: 6rem;
+            height: 6rem;
+
+            + p {
+                margin-top: 1rem;
+            }
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding-top: 6.5rem;
+
+        .game-step {
+            .form-group {
+            }
+
+            svg {
+                width: 4rem;
+                height: 4rem;
+
+                + p {
+                }
+            }
+        }
+    }
+}
+
+.game-footer {
+    display: flex;
+    justify-content: center;
+    border-top: 0.25rem solid $color0;
+    padding: 0.25rem;
+
+    .btn {
+        margin: 0 0.25rem;
+    }
+}
+
+.game-home-step {
+}
+
+.game-loading-step {
+
+    svg {
+        @include spin(3000ms);
+    }
+}
+
+.game-start-step {
+}
+
+.game-wait-step {
+}
+
+.game-correct-answer-step {
+}
+
+.game-show-question-step {
+    .question-text {
+        max-height: 13.5rem;
+        overflow: auto;
+        margin-bottom: 1rem;
+    }
+
+    .question-answer-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .question-answer {
+        flex: 1 0 50%;
+        max-width: 50%;
+        margin-bottom: 1rem;
+    }
+}
+
+.game-user-quiz-list-step {
+    table {
+        color: $white;
+    }
+}

@@ -1,0 +1,53 @@
+﻿@page
+@model EnableAuthenticatorModel
+@{
+    ViewData["Title"] = "Kimlik doğrulama uygulamasını yapılandırın";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+<div>
+    <p>Kimlik doğrulayıcı uygulamasını kullanmak için aşağıdaki adımları izleyin:</p>
+    <ol class="list">
+        <li>
+            <p>
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825071">Windows Phone</a>,
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android</a> ve
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS</a> için
+                Microsoft Authenticator gibi veya
+                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a> ve
+                <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>
+                için Google Authenticator gibi iki faktörlü bir kimlik doğrulama uygulaması indirin.
+            </p>
+        </li>
+        <li>
+            <p>QR Kodunu tarayın veya iki faktörlü kimlik doğrulama uygulamanıza bu anahtarı <kbd>@Model.SharedKey</kbd> girin. Boşluklar ve kaplama önemli değil.</p>
+            <div class="alert alert-info">QR kod oluşturmayı etkinleştirmek için lütfen <a href="https://go.microsoft.com/fwlink/?Linkid=852423">dokümantasyonumuzu</a> okuyun.</div>
+            <div id="qrCode"></div>
+            <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
+        </li>
+        <li>
+            <p>
+                QR kodunu taradıktan veya yukarıdaki anahtarı girdikten sonra, iki faktörlü kimlik doğrulama uygulamanız size benzersiz bir kod sağlayacaktır. Kodu aşağıdaki onay kutusuna girin.
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="send-code" method="post">
+                        <div class="form-group">
+                            <label asp-for="Input.Code" class="control-label">Doğrulama kodu</label>
+                            <input asp-for="Input.Code" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Input.Code" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Doğrula</button>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ol>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

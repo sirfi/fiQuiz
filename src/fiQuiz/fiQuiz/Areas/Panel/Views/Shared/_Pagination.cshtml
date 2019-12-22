@@ -1,0 +1,23 @@
+﻿@model fiQuiz.Core.IPaginatedEnumerable
+
+<nav aria-label="Sayfalama">
+    <ul class="pagination pagination-sm flex-wrap">
+        <li class="page-item@(Model.HasPreviousPage?"":" disabled")">
+            <a class="page-link" asp-route-pageIndex="@(Model.PageIndex-1)">Önceki</a>
+        </li>
+        @for (int pi = 1; pi <= Model.TotalPages; pi++)
+        {
+            <li class="page-item@(pi == Model.PageIndex?" active":"")">
+                <a class="page-link" asp-route-pageIndex="@pi">@pi 
+                @if (pi == Model.PageIndex)
+                {
+                    <span class="sr-only">(current)</span>
+                }
+                </a>
+            </li>
+        }
+        <li class="page-item@(Model.HasNextPage?"":" disabled")">
+            <a class="page-link" asp-route-pageIndex="@(Model.PageIndex+1)">Sonraki</a>
+        </li>
+    </ul>
+</nav>

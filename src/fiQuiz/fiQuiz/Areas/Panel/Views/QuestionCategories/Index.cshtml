@@ -1,0 +1,40 @@
+﻿@model IEnumerable<fiQuiz.Models.QuestionCategory>
+
+@{
+    ViewData["Title"] = "Soru Kategorileri";
+}
+
+<h1>Soru Kategorileri</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Oluştur</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-last-small-column">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="İşlemler">
+                            <partial name="_TrackDetails" model="@item" />
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Düzenle</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Sil</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

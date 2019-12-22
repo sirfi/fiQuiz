@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Yarışma";
+}
+
+<div id="quiz-app">
+
+</div>
+
+@section Scripts
+    {
+    <script>
+        window.userToken = JSON.parse('@Html.Raw(ViewBag.TokenJson)');
+    </script>
+    <script src="~/dist/bundle-quiz-app.js"></script>
+}

@@ -1,0 +1,75 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>be04c753-ce33-4543-bb7b-9b92a9859692</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20191111203243_Joker.cs" />
+    <Compile Remove="Migrations\20191111203243_Joker.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Panel\Views\Shared\EditorTemplates\QuestionAnswer.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Panel\Data\" />
+    <Folder Include="Pages\" />
+    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Panel\Views\Shared\EditorTemplates\QuestionAnswer.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controllers\QuizGameController.cs">
+      <Generator></Generator>
+    </Compile>
+    <Compile Update="Models\ViewModels\ApiBase.cs">
+      <Generator></Generator>
+    </Compile>
+    <Compile Update="Models\ViewModels\QuizGameGetQuestion.cs">
+      <Generator></Generator>
+    </Compile>
+    <Compile Update="Models\ViewModels\QuizGameSendAnswer.cs">
+      <Generator></Generator>
+    </Compile>
+    <Compile Update="Models\ViewModels\QuizGameStart.cs">
+      <Generator></Generator>
+    </Compile>
+    <Compile Update="Models\ViewModels\QuizGameUseJoker.cs">
+      <Generator></Generator>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Panel\Views\Shared\_Layout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Panel\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Panel\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+</Project>
