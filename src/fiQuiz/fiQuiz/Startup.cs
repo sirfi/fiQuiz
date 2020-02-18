@@ -126,6 +126,9 @@ namespace fiQuiz
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
+
+            services.AddOpenApiDocument(document => document.DocumentName = "a");
+            services.AddSwaggerDocument(document => document.DocumentName = "b");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -154,6 +157,9 @@ namespace fiQuiz
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
             app.UseAuthentication();
+
+            app.UseOpenApi(); // serve documents (same as app.UseSwagger())
+            app.UseSwaggerUi3(); // serve Swagger UI
 
             app.UseMvc(routes =>
             {

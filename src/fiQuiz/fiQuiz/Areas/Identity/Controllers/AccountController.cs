@@ -41,21 +41,21 @@ namespace fiQuiz.Areas.Identity.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<ActionResult<JwtTokenResult>> Login([FromBody] LoginDto model)
         {
             SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (result.Succeeded)
             {
                 ApplicationUser appUser = await _userManager.FindByNameAsync(model.Email);
-                return _tokenService.GenerateJwtToken(appUser);
+                return Ok(_tokenService.GenerateJwtToken(appUser));
             }
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            return BadRequest("Girdiğiniz bilgilerin doğruluğunu kontrol ediniz.");
         }
 
         [HttpPost]
-        public async Task<object> Register([FromBody] RegisterDto model)
+        public async Task<ActionResult<JwtTokenResult>> Register([FromBody] RegisterDto model)
         {
             ApplicationUser user = new ApplicationUser
             {
@@ -68,22 +68,22 @@ namespace fiQuiz.Areas.Identity.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return _tokenService.GenerateJwtToken(user);
+                return Ok(_tokenService.GenerateJwtToken(user));
             }
 
-            throw new ApplicationException("UNKNOWN_ERROR");
+            return BadRequest(result.Errors);
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<object> GetToken()
+        public async Task<JwtTokenResult> GetToken()
         {
             return await _tokenService.GetToken(User.Identity.Name);
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<object> Logout()
+        public async Task<ActionResult<bool>> Logout()
         {
             await _signInManager.SignOutAsync();
             return true;

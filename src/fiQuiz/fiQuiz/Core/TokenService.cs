@@ -26,7 +26,7 @@ namespace fiQuiz.Core
             _userManager = userManager;
             _configuration = configuration;
         }
-        public async Task<object> GetToken(string userName)
+        public async Task<JwtTokenResult> GetToken(string userName)
         {
             ApplicationUser appUser = await _userManager.FindByNameAsync(userName);
             return GenerateJwtToken(appUser);

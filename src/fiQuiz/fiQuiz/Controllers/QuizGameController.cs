@@ -66,7 +66,7 @@ namespace fiQuiz.Controllers
             public int QuestionIndex { get; set; }
         }
 
-        public async Task<IActionResult> Start(QuizGameStartRequest request)
+        public async Task<ActionResult<QuizGameStartResponse>> Start(QuizGameStartRequest request)
         {
             int questionCount = _options.QuizQuestionCount;
             QuizGameStartResponse response = new QuizGameStartResponse
@@ -105,7 +105,7 @@ namespace fiQuiz.Controllers
             return Ok(response);
         }
 
-        private async Task<(Quiz, QuizQuestion, int, IActionResult)> GetQuestionBase(int quizId, int quizQuestionId)
+        private async Task<(Quiz, QuizQuestion, int, ActionResult)> GetQuestionBase(int quizId, int quizQuestionId)
         {
             Quiz quiz = await _context.Quizzes.Include(x => x.QuizUsedJokers).Include(x => x.QuizQuestions).ThenInclude(x => x.Question).ThenInclude(x => x.Answers).Include(x => x.QuizQuestions).ThenInclude(x => x.Question).ThenInclude(x => x.Category).Include(x => x.QuizQuestions).ThenInclude(x => x.QuizQuestionAnswers).SingleOrDefaultAsync(x => x.Id == quizId);
             if (quiz == null)
@@ -142,10 +142,10 @@ namespace fiQuiz.Controllers
             response.AnswerTime = _options.QuizAnswerTime;
             return response;
         }
-        public async Task<IActionResult> GetQuestion(QuizGameGetQuestionRequest request)
+        public async Task<ActionResult<QuizGameGetQuestionResponse>> GetQuestion(QuizGameGetQuestionRequest request)
         {
             QuizQuestion quizQuestion;
-            IActionResult actionResult;
+            ActionResult actionResult;
             (_, quizQuestion, _, actionResult) = await GetQuestionBase(request.QuizId, request.QuizQuestionId);
 
             if (actionResult != null)
@@ -160,13 +160,13 @@ namespace fiQuiz.Controllers
             return Ok(response);
         }
 
-        public async Task<IActionResult> SendAnswer(QuizGameSendAnswerRequest request)
+        public async Task<ActionResult<QuizGameSendAnswerResponse>> SendAnswer(QuizGameSendAnswerRequest request)
         {
             QuizGameSendAnswerResponse response = new QuizGameSendAnswerResponse();
             Quiz quiz;
             QuizQuestion quizQuestion;
             int quizQuestionIndex;
-            IActionResult actionResult;
+            ActionResult actionResult;
             (quiz, quizQuestion, quizQuestionIndex, actionResult) = await GetQuestionBase(request.QuizId, request.QuizQuestionId);
 
             if (actionResult != null)
@@ -216,13 +216,13 @@ namespace fiQuiz.Controllers
             return Ok(response);
         }
 
-        public async Task<IActionResult> UseJoker(QuizGameUseJokerRequest request)
+        public async Task<ActionResult<QuizGameUseJokerResponse>> UseJoker(QuizGameUseJokerRequest request)
         {
             QuizGameUseJokerResponse response = new QuizGameUseJokerResponse();
             Quiz quiz;
             QuizQuestion quizQuestion;
             int quizQuestionIndex;
-            IActionResult actionResult;
+            ActionResult actionResult;
             (quiz, quizQuestion, quizQuestionIndex, actionResult) = await GetQuestionBase(request.QuizId, request.QuizQuestionId);
 
             if (actionResult != null)
@@ -282,7 +282,7 @@ namespace fiQuiz.Controllers
             return Ok(response);
         }
 
-        public async Task<IActionResult> SetTimeout(QuizGameSetTimeoutRequest request)
+        public async Task<ActionResult<QuizGameSetTimeoutResponse>> SetTimeout(QuizGameSetTimeoutRequest request)
         {
             QuizGameSetTimeoutResponse response = new QuizGameSetTimeoutResponse();
             Quiz quiz = await _context.Quizzes.FindAsync(request.QuizId);
@@ -302,7 +302,7 @@ namespace fiQuiz.Controllers
             return Ok(response);
         }
 
-        public async Task<IActionResult> GetUserQuizList(QuizGameGetUserQuizListRequest request)
+        public async Task<ActionResult<QuizGameGetUserQuizListResponse>> GetUserQuizList(QuizGameGetUserQuizListRequest request)
         {
             QuizGameGetUserQuizListResponse response = new QuizGameGetUserQuizListResponse();
             IQueryable<UserQuiz> quizzesQueryable = _context.Quizzes.Include(x => x.QuizQuestions)
@@ -331,7 +331,7 @@ namespace fiQuiz.Controllers
             return Ok(response);
         }
 
-        public async Task<IActionResult> ReportQuestion(QuizGameReportQuestionRequest request)
+        public async Task<ActionResult<QuizGameReportQuestionResponse>> ReportQuestion(QuizGameReportQuestionRequest request)
         {
             QuizQuestion quizQuestion = await _context.QuizQuestions.Include(x=>x.Question).FirstOrDefaultAsync(x => x.QuizId == request.QuizId && x.Id == request.QuizQuestionId);
             Question question = quizQuestion?.Question;
